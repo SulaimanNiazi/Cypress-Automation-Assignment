@@ -38,6 +38,9 @@ npx cypress run --record
 npx cypress open
 ```
 ---
+__[Link of successful run on Cypress Cloud](https://cloud.cypress.io/projects/r367ew/runs/21/overview?roarHideRunsWithDiffGroupsAndTags=1)__
+
+---
 #### Made under the mentorship of: Shahzeb Khan
 ---
 <p align="center">
