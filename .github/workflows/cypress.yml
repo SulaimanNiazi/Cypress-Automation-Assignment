@@ -22,6 +22,7 @@ jobs:
           record: true
           parallel: true
           start: npx cypress run --browser firefox
+          group: Firefox test group
 
   chrome-run:
     runs-on: ubuntu-latest
@@ -38,3 +39,4 @@ jobs:
           record: true
           parallel: true
           start: npx cypress run --browser chrome
+          group: Chrome test group
