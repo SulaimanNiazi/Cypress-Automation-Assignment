@@ -83,4 +83,36 @@ describe("Assignment test suite",function(){
         cy.visit('/cart.html')
         cy.get('.cart_list').find('.cart_item').should('have.length',2)
     })
+    it("Verify All Sorting Options on Products Page",function(){
+        const checkOrder=function(loc,rev){
+            let itemList=Array(6)
+            if(loc.includes('price')){
+                cy.get('.pricebar > .inventory_item_price').each(($el,index)=>{
+                    const val=$el.text()
+                    const strnum=val.split('$')
+                    const num=parseFloat(strnum[1].trim())
+                    itemList[index]=num
+                }).then(()=>{
+                    const sorted = rev?itemList.map(x=>x).sort((a,b)=>b-a):itemList.map(x=>x).sort((a,b)=>a-b)
+                    expect(sorted).to.deep.equal(itemList)
+                })
+            }
+            else{
+                cy.get(loc).each(($el,index)=>{
+                    itemList[index]=$el.text()
+                }).then(()=>{
+                    const sorted=rev?itemList.map(a=>a).sort().reverse():itemList.map(a=>a).sort()
+                    expect(sorted).to.deep.equal(itemList)
+                })
+            }
+        }
+        cy.get('.product_sort_container').select('Name (A to Z)').should('have.value','az')
+        checkOrder('.inventory_item_name',false)
+        cy.get('.product_sort_container').select('Name (Z to A)').should('have.value','za')
+        checkOrder('.inventory_item_name',true)
+        cy.get('.product_sort_container').select('Price (low to high)').should('have.value','lohi')
+        checkOrder('.pricebar > .inventory_item_price',false)
+        cy.get('.product_sort_container').select('Price (high to low)').should('have.value','hilo')
+        checkOrder('.pricebar > .inventory_item_price',true)
+    })
 })
