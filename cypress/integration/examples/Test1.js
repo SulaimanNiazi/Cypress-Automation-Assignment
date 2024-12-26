@@ -1,4 +1,7 @@
 ///<reference types="cypress"/>
+
+import signInPage from "../../support/pages/signInPage"
+
 /*
 clear|npx cypress open
 clear|npx cypress run --browser chrome --spec "cypress/integration/examples/Test1.js"
@@ -10,12 +13,11 @@ describe("Assignment test suite",function(){
     })
     it("Successful Sign In",function(){
         cy.visit('/index.html')
+        const signinpage=new signInPage()
         cy.fixture('SignIn').then((data)=>{
-            cy.get('[data-test="username"]').type(data.username)
-            cy.get('#password').type(data.password)
+            signinpage.signIn(data.username,data.password)
         })
-        cy.get('#login-button').click()
-        cy.get('.product_label').should('be.visible').should('have.text','Products')
+        signinpage.verifySignIn()
         cy.get('.inventory_list').find('.inventory_item').should('have.length',6)
     })
     it("Add Items to Cart and Remove Them from the Products Page",function(){
