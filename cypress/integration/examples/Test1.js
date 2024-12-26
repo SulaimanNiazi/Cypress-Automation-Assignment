@@ -39,4 +39,24 @@ describe("Assignment test suite",function(){
         })
         cy.get('.cart_list').find('.cart_item').should('have.length',0)
     })
+    it("Add Items to Cart and Remove Them from the Product Details Page",function(){
+        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        let linkList=Array(20)
+        let links=0
+        cy.get('.inventory_list').find('.inventory_item').each(($el)=>{
+            if($el.find('button').text().includes('REMOVE')){
+                cy.get($el).find('a').then((link)=>{
+                    cy.get(link).invoke('attr','href').then((href)=>{linkList[links++]=href})
+                })
+            }
+        }).then(()=>{
+            for(var x=0;x<links;x++){
+                cy.visit(linkList[x])
+                cy.get('.btn_secondary').click()
+                cy.wait(1000)
+                cy.get('.btn_primary').should('have.text','ADD TO CART')
+            }
+        })
+    })
 })
