@@ -59,4 +59,17 @@ describe("Assignment test suite",function(){
             }
         })
     })
+    it("Buy Items",function(){
+        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        cy.visit('/cart.html')
+        cy.get('.cart_list').find('.cart_item').should('have.length',2)
+        cy.get('.checkout_button').click()
+        cy.get('[data-test="firstName"]').type("Sulaiman")
+        cy.get('[data-test="lastName"]').type("Niazi")
+        cy.get('[data-test="postalCode"]').type('69')
+        cy.get('.btn_primary').click()
+        cy.get('.btn_action').click()
+        cy.get('.complete-header').should('be.visible').should('have.text','THANK YOU FOR YOUR ORDER')
+    })
 })
