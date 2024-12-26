@@ -23,10 +23,8 @@ describe("Assignment test suite",function(){
         cy.get('.fa-layers-counter').should('be.visible').should('have.text','1')
         cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
         cy.get('.fa-layers-counter').should('be.visible').should('have.text','2')
-        cy.wait(1000)
         cy.get(':nth-child(1) > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
         cy.get(':nth-child(2) > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
-        cy.wait(1000)
         cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART')
         cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART')
     })
@@ -56,7 +54,6 @@ describe("Assignment test suite",function(){
             for(var x=0;x<links;x++){
                 cy.visit(linkList[x])
                 cy.get('.btn_secondary').click()
-                cy.wait(1000)
                 cy.get('.btn_primary').should('have.text','ADD TO CART')
             }
         })
