@@ -28,4 +28,15 @@ describe("Assignment test suite",function(){
         cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART')
         cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART')
     })
+    it("Add Items to Cart and Remove Them from the Checkout Page",function(){
+        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        cy.visit('/cart.html')
+        cy.get('.cart_list').find('.cart_item').should('have.length',2).each(($el)=>{
+            if($el.find('button').text().includes('REMOVE')){
+                cy.wrap($el).find('button').click()
+            }
+        })
+        cy.get('.cart_list').find('.cart_item').should('have.length',0)
+    })
 })
