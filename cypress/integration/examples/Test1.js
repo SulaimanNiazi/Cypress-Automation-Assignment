@@ -1,5 +1,6 @@
 ///<reference types="cypress"/>
 
+import inventoryPage from "../../support/pages/inventoryPage"
 import signInPage from "../../support/pages/signInPage"
 
 /*
@@ -15,10 +16,10 @@ describe("Assignment test suite",function(){
         cy.visit('/index.html')
         const signinpage=new signInPage()
         cy.fixture('SignIn').then((data)=>{
-            signinpage.signIn(data.username,data.password)
+            const inventorypage=signinpage.signIn(data.username,data.password)
+            signinpage.verifySignIn()
+            inventorypage.verifyHome()
         })
-        signinpage.verifySignIn()
-        cy.get('.inventory_list').find('.inventory_item').should('have.length',6)
     })
     it("Add Items to Cart and Remove Them from the Products Page",function(){
         cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
