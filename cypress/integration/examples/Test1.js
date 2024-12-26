@@ -10,8 +10,10 @@ describe("Assignment test suite",function(){
     })
     it("Successful Sign In",function(){
         cy.visit('/index.html')
-        cy.get('[data-test="username"]').type('standard_user')
-        cy.get('#password').type('secret_sauce')
+        cy.fixture('SignIn').then((data)=>{
+            cy.get('[data-test="username"]').type(data.username)
+            cy.get('#password').type(data.password)
+        })
         cy.get('#login-button').click()
         cy.get('.product_label').should('be.visible').should('have.text','Products')
         cy.get('.inventory_list').find('.inventory_item').should('have.length',6)
