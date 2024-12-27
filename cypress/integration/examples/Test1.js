@@ -45,21 +45,14 @@ describe("Assignment test suite",function(){
     it("Add Items to Cart and Remove Them from the Product Details Page",function(){
         this.inventorypage.addItem(1)
         this.inventorypage.addItem(2)
-        let linkList=Array(20)
-        let links=0
-        cy.get('.inventory_list').find('.inventory_item').each(($el)=>{
-            if($el.find('button').text().includes('REMOVE')){
-                cy.get($el).find('a').then((link)=>{
-                    cy.get(link).invoke('attr','href').then((href)=>{linkList[links++]=href})
-                })
-            }
-        }).then(()=>{
-            for(var x=0;x<links;x++){
-                cy.visit(linkList[x])
-                cy.get('.btn_secondary').click()
-                cy.get('.btn_primary').should('have.text','ADD TO CART')
-            }
-        })
+        let productDetails=this.inventorypage.visitDetailsPage(1)
+        productDetails.removeItem()
+        this.inventorypage=productDetails.goBack()
+        productDetails=this.inventorypage.visitDetailsPage(2)
+        productDetails.removeItem()
+        this.inventorypage=productDetails.goBack()
+        this.inventorypage.verifyNotSelected(1)
+        this.inventorypage.verifyNotSelected(2)
     })
     it("Buy Items",function(){
         this.inventorypage.addItem(1)
