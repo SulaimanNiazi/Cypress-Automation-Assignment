@@ -8,23 +8,25 @@ clear|npx cypress open
 clear|npx cypress run --browser chrome --spec "cypress/integration/examples/Test1.js"
 clear|npx cypress cache clear|npx cypress install|npx cypress open
 */
+
 describe("Assignment test suite",function(){
-    beforeEach('Visit saucedemo inventory page',function(){
-        cy.visit('/inventory.html')
-    })
-    it("Successful Sign In",function(){
-        cy.visit('/index.html')
-        const signinpage=new signInPage()
+    beforeEach(function(){
         cy.fixture('SignIn').then((data)=>{
-            const inventorypage=signinpage.signIn(data.username,data.password)
-            inventorypage.verifyHome()
+            this.signin=data
+            this.signinpage=new signInPage()
+            cy.visit('/index.html') 
+            this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
         })
     })
+    it('Successful Sign In',function(){
+        cy.visit('/index.html') 
+        this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
+        this.inventorypage.verifyHome()
+    })
     it("Add Items to Cart and Remove Them from the Products Page",function(){
-        const inventorypage=new inventoryPage()
-        inventorypage.addItem(1)
+        this.inventorypage.addItem(1)
         cy.get('.fa-layers-counter').should('be.visible').should('have.text','1')
-        inventorypage.addItem(2)
+        this.inventorypage.addItem(2)
         cy.get('.fa-layers-counter').should('be.visible').should('have.text','2')
         cy.get(':nth-child(1) > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
         cy.get(':nth-child(2) > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
@@ -32,9 +34,8 @@ describe("Assignment test suite",function(){
         cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART')
     })
     it("Add Items to Cart and Remove Them from the Checkout Page",function(){
-        const inventorypage=new inventoryPage()
-        inventorypage.addItem(1)
-        inventorypage.addItem(2)
+        this.inventorypage.addItem(1)
+        this.inventorypage.addItem(2)
         cy.visit('/cart.html')
         cy.get('.cart_list').find('.cart_item').should('have.length',2).each(($el)=>{
             if($el.find('button').text().includes('REMOVE')){
@@ -44,9 +45,8 @@ describe("Assignment test suite",function(){
         cy.get('.cart_list').find('.cart_item').should('have.length',0)
     })
     it("Add Items to Cart and Remove Them from the Product Details Page",function(){
-        const inventorypage=new inventoryPage()
-        inventorypage.addItem(1)
-        inventorypage.addItem(2)
+        this.inventorypage.addItem(1)
+        this.inventorypage.addItem(2)
         let linkList=Array(20)
         let links=0
         cy.get('.inventory_list').find('.inventory_item').each(($el)=>{
@@ -64,9 +64,8 @@ describe("Assignment test suite",function(){
         })
     })
     it("Buy Items",function(){
-        const inventorypage=new inventoryPage()
-        inventorypage.addItem(1)
-        inventorypage.addItem(2)
+        this.inventorypage.addItem(1)
+        this.inventorypage.addItem(2)
         cy.visit('/cart.html')
         cy.get('.cart_list').find('.cart_item').should('have.length',2)
         cy.get('.checkout_button').click()
@@ -80,14 +79,12 @@ describe("Assignment test suite",function(){
         cy.get('.complete-header').should('be.visible').should('have.text','THANK YOU FOR YOUR ORDER')
     })
     it("Add Items to Cart, Logout, and Login Again to Verify Cart Persistence",function(){
-        const inventorypage=new inventoryPage()
-        inventorypage.addItem(1)
-        inventorypage.addItem(2)
+        this.inventorypage.addItem(1)
+        this.inventorypage.addItem(2)
         cy.get('.bm-burger-button > button').click()
         cy.get('#logout_sidebar_link').click()
-        cy.get('[data-test="username"]').type('standard_user')
-        cy.get('#password').type('secret_sauce')
-        cy.get('#login-button').click()
+        const inventorypage2=this.signinpage.signIn(this.signin.username,this.signin.password)
+        inventorypage2.verifyHome()
         cy.visit('/cart.html')
         cy.get('.cart_list').find('.cart_item').should('have.length',2)
     })
