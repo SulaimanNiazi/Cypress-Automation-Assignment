@@ -1,3 +1,4 @@
+import checkoutPage from "./checkoutPage"
 import inventoryPage from "./inventoryPage"
 
 class cartPage{
@@ -16,6 +17,7 @@ class cartPage{
     }
     checkout(){
         cy.get('.btn_action').click()
+        return new checkoutPage()
     }
 }
 export default cartPage;
