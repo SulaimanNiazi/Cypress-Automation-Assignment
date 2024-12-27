@@ -13,8 +13,8 @@ describe("Assignment test suite",function(){
     beforeEach(function(){
         cy.fixture('SignIn').then((data)=>{
             this.signin=data
-            this.signinpage=new signInPage()
-            cy.visit('/index.html')
+            this.signinpage=new signInPage('/index.html')
+            this.signinpage.visit()
             this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
         })
     })
@@ -28,8 +28,8 @@ describe("Assignment test suite",function(){
         this.inventorypage.verifyCount(2)
         this.inventorypage.removeItem(1)
         this.inventorypage.removeItem(2)
-        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART')
-        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART')
+        this.inventorypage.verifyNotSelected(1)
+        this.inventorypage.verifyNotSelected(2)
     })
     it("Add Items to Cart and Remove Them from the Checkout Page",function(){
         this.inventorypage.addItem(1)

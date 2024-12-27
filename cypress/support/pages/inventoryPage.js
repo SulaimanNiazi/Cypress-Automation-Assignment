@@ -10,6 +10,9 @@ class inventoryPage{
     verifyCount(num){
         cy.get('.fa-layers-counter').should('be.visible').should('have.text',num.toString())
     }
+    verifyNotSelected(num){
+        cy.get(':nth-child('+num.toString()+') > .pricebar > .btn_primary').should('have.text','ADD TO CART')
+    }
     removeItem(num){
         cy.get(':nth-child('+num.toString()+') > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
     }
