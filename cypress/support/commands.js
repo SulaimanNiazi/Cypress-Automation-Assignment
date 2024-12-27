@@ -23,3 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('sidebarSelect',(num)=>{
+    cy.get('.bm-burger-button > button').click()
+    cy.get('.bm-menu a').eq(num-1).click()
+})

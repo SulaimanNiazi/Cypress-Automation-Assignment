@@ -1,4 +1,4 @@
-import inventoryPage from "./inventoryPage";
+import inventoryPage from "./inventoryPage"
 import page from "./page"
 class purchasePage extends page{
     purchase(){

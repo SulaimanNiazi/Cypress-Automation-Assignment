@@ -7,13 +7,11 @@ class page{
         return new cartPage()
     }
     logout(){
-        cy.get('.bm-burger-button > button').click()
-        cy.get('#logout_sidebar_link').click()
+        cy.sidebarSelect(3)
         return new signInPage()
     }
     visitInventory(){
-        cy.get('.bm-burger-button > button').click()
-        cy.get('#inventory_sidebar_link').click()
+        cy.sidebarSelect(1)
         return new inventoryPage()
     }
 }
