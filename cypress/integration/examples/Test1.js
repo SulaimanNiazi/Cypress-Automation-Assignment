@@ -23,9 +23,9 @@ describe("Assignment test suite",function(){
     })
     it("Add Items to Cart and Remove Them from the Products Page",function(){
         this.inventorypage.addItem(1)
-        cy.get('.fa-layers-counter').should('be.visible').should('have.text','1')
+        this.inventorypage.verifyCount(1)
         this.inventorypage.addItem(2)
-        cy.get('.fa-layers-counter').should('be.visible').should('have.text','2')
+        this.inventorypage.verifyCount(2)
         cy.get(':nth-child(1) > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
         cy.get(':nth-child(2) > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
         cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART')

@@ -7,6 +7,9 @@ class inventoryPage{
     addItem(num){
         cy.get(':nth-child('+num.toString()+') > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
     }
+    verifyCount(num){
+        cy.get('.fa-layers-counter').should('be.visible').should('have.text',num.toString())
+    }
     logout(){
         cy.get('.bm-burger-button > button').click()
         cy.get('#logout_sidebar_link').click()
