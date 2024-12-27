@@ -18,7 +18,7 @@ class inventoryPage{
         cy.get(':nth-child('+num.toString()+') > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
     }
     visitDetailsPage(num){
-        cy.get('.inventory_item_name').eq((num-1).toString()).click()
+        cy.get('.inventory_item_name').eq(num-1).click()
         return new productDetailsPage()
     }
     sortByName(reverse){

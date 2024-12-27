@@ -1,5 +1,6 @@
 ///<reference types="cypress"/>
 
+import cartPage from "../../support/pages/cartPage"
 import inventoryPage from "../../support/pages/inventoryPage"
 import signInPage from "../../support/pages/signInPage"
 
@@ -34,13 +35,11 @@ describe("Assignment test suite",function(){
     it("Add Items to Cart and Remove Them from the Checkout Page",function(){
         this.inventorypage.addItem(1)
         this.inventorypage.addItem(2)
-        cy.visit('/cart.html')
-        cy.get('.cart_list').find('.cart_item').should('have.length',2).each(($el)=>{
-            if($el.find('button').text().includes('REMOVE')){
-                cy.wrap($el).find('button').click()
-            }
-        })
-        cy.get('.cart_list').find('.cart_item').should('have.length',0)
+        const cart=new cartPage()
+        cart.verifyCartItems(2)
+        cart.removeItem(2)
+        cart.removeItem(1)
+        cart.verifyCartItems(0)
     })
     it("Add Items to Cart and Remove Them from the Product Details Page",function(){
         this.inventorypage.addItem(1)
@@ -57,9 +56,9 @@ describe("Assignment test suite",function(){
     it("Buy Items",function(){
         this.inventorypage.addItem(1)
         this.inventorypage.addItem(2)
-        cy.visit('/cart.html')
-        cy.get('.cart_list').find('.cart_item').should('have.length',2)
-        cy.get('.checkout_button').click()
+        const cart=new cartPage()
+        cart.verifyCartItems(2)
+        cart.checkout()
         cy.fixture("Personal Details").then((entry)=>{
             cy.get('[data-test="firstName"]').type(entry.firstName)
             cy.get('[data-test="lastName"]').type(entry.lastName)
@@ -75,8 +74,8 @@ describe("Assignment test suite",function(){
         this.signinpage=this.inventorypage.logout()
         this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
         this.inventorypage.verifyHome()
-        cy.visit('/cart.html')
-        cy.get('.cart_list').find('.cart_item').should('have.length',2)
+        const cart=new cartPage()
+        cart.verifyCartItems(2)
     })
     it("Verify All Sorting Options on Products Page",function(){
         this.inventorypage.sortByName()
