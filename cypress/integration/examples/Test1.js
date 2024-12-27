@@ -21,9 +21,10 @@ describe("Assignment test suite",function(){
         })
     })
     it("Add Items to Cart and Remove Them from the Products Page",function(){
-        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        const inventorypage=new inventoryPage()
+        inventorypage.addItem(1)
         cy.get('.fa-layers-counter').should('be.visible').should('have.text','1')
-        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        inventorypage.addItem(2)
         cy.get('.fa-layers-counter').should('be.visible').should('have.text','2')
         cy.get(':nth-child(1) > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
         cy.get(':nth-child(2) > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
@@ -31,8 +32,9 @@ describe("Assignment test suite",function(){
         cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART')
     })
     it("Add Items to Cart and Remove Them from the Checkout Page",function(){
-        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
-        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        const inventorypage=new inventoryPage()
+        inventorypage.addItem(1)
+        inventorypage.addItem(2)
         cy.visit('/cart.html')
         cy.get('.cart_list').find('.cart_item').should('have.length',2).each(($el)=>{
             if($el.find('button').text().includes('REMOVE')){
@@ -42,8 +44,9 @@ describe("Assignment test suite",function(){
         cy.get('.cart_list').find('.cart_item').should('have.length',0)
     })
     it("Add Items to Cart and Remove Them from the Product Details Page",function(){
-        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
-        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        const inventorypage=new inventoryPage()
+        inventorypage.addItem(1)
+        inventorypage.addItem(2)
         let linkList=Array(20)
         let links=0
         cy.get('.inventory_list').find('.inventory_item').each(($el)=>{
@@ -61,8 +64,9 @@ describe("Assignment test suite",function(){
         })
     })
     it("Buy Items",function(){
-        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
-        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        const inventorypage=new inventoryPage()
+        inventorypage.addItem(1)
+        inventorypage.addItem(2)
         cy.visit('/cart.html')
         cy.get('.cart_list').find('.cart_item').should('have.length',2)
         cy.get('.checkout_button').click()
@@ -76,8 +80,9 @@ describe("Assignment test suite",function(){
         cy.get('.complete-header').should('be.visible').should('have.text','THANK YOU FOR YOUR ORDER')
     })
     it("Add Items to Cart, Logout, and Login Again to Verify Cart Persistence",function(){
-        cy.get(':nth-child(1) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
-        cy.get(':nth-child(2) > .pricebar > .btn_primary').should('have.text','ADD TO CART').click()
+        const inventorypage=new inventoryPage()
+        inventorypage.addItem(1)
+        inventorypage.addItem(2)
         cy.get('.bm-burger-button > button').click()
         cy.get('#logout_sidebar_link').click()
         cy.get('[data-test="username"]').type('standard_user')
