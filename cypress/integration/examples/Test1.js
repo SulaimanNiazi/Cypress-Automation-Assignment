@@ -35,7 +35,7 @@ describe("Assignment test suite",function(){
     it("Add Items to Cart and Remove Them from the Checkout Page",function(){
         this.inventorypage.addItem(1)
         this.inventorypage.addItem(2)
-        const cart=new cartPage()
+        const cart=this.inventorypage.visitCart()
         cart.verifyCartItems(2)
         cart.removeItem(2)
         cart.removeItem(1)
@@ -56,7 +56,7 @@ describe("Assignment test suite",function(){
     it("Buy Items",function(){
         this.inventorypage.addItem(1)
         this.inventorypage.addItem(2)
-        const cart=new cartPage()
+        const cart=this.inventorypage.visitCart()
         cart.verifyCartItems(2)
         const checkout=cart.checkout()
         cy.fixture("Personal Details").then((entry)=>{
@@ -71,7 +71,7 @@ describe("Assignment test suite",function(){
         this.signinpage=this.inventorypage.logout()
         this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
         this.inventorypage.verifyHome()
-        const cart=new cartPage()
+        const cart=this.inventorypage.visitCart()
         cart.verifyCartItems(2)
     })
     it("Verify All Sorting Options on Products Page",function(){
