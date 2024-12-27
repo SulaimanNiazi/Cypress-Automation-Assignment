@@ -101,13 +101,13 @@ describe("Assignment test suite",function(){
                 })
             }
         }
-        cy.get('.product_sort_container').select('Name (A to Z)').should('have.value','az')
+        this.inventorypage.sortByName()
         checkOrder('.inventory_item_name',false)
-        cy.get('.product_sort_container').select('Name (Z to A)').should('have.value','za')
+        this.inventorypage.sortByName(true)
         checkOrder('.inventory_item_name',true)
-        cy.get('.product_sort_container').select('Price (low to high)').should('have.value','lohi')
+        this.inventorypage.sortByPrice()
         checkOrder('.pricebar > .inventory_item_price',false)
-        cy.get('.product_sort_container').select('Price (high to low)').should('have.value','hilo')
+        this.inventorypage.sortByPrice(true)
         checkOrder('.pricebar > .inventory_item_price',true)
     })
 })
