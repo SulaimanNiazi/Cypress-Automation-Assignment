@@ -10,6 +10,9 @@ class inventoryPage{
     verifyCount(num){
         cy.get('.fa-layers-counter').should('be.visible').should('have.text',num.toString())
     }
+    removeItem(num){
+        cy.get(':nth-child('+num.toString()+') > .pricebar > .btn_secondary').should('have.text','REMOVE').click()
+    }
     logout(){
         cy.get('.bm-burger-button > button').click()
         cy.get('#logout_sidebar_link').click()
