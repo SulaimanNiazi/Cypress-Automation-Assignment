@@ -79,35 +79,13 @@ describe("Assignment test suite",function(){
         cy.get('.cart_list').find('.cart_item').should('have.length',2)
     })
     it("Verify All Sorting Options on Products Page",function(){
-        const checkOrder=function(loc,rev){
-            let itemList=Array(6)
-            if(loc.includes('price')){
-                cy.get('.pricebar > .inventory_item_price').each(($el,index)=>{
-                    const val=$el.text()
-                    const strnum=val.split('$')
-                    const num=parseFloat(strnum[1].trim())
-                    itemList[index]=num
-                }).then(()=>{
-                    const sorted = rev?itemList.map(x=>x).sort((a,b)=>b-a):itemList.map(x=>x).sort((a,b)=>a-b)
-                    expect(sorted).to.deep.equal(itemList)
-                })
-            }
-            else{
-                cy.get(loc).each(($el,index)=>{
-                    itemList[index]=$el.text()
-                }).then(()=>{
-                    const sorted=rev?itemList.map(a=>a).sort().reverse():itemList.map(a=>a).sort()
-                    expect(sorted).to.deep.equal(itemList)
-                })
-            }
-        }
         this.inventorypage.sortByName()
-        checkOrder('.inventory_item_name',false)
+        this.inventorypage.verifySorted()
         this.inventorypage.sortByName(true)
-        checkOrder('.inventory_item_name',true)
+        this.inventorypage.verifySorted(true)
         this.inventorypage.sortByPrice()
-        checkOrder('.pricebar > .inventory_item_price',false)
+        this.inventorypage.verifySorted()
         this.inventorypage.sortByPrice(true)
-        checkOrder('.pricebar > .inventory_item_price',true)
+        this.inventorypage.verifySorted(true)
     })
 })
