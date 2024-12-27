@@ -2,9 +2,6 @@ import checkoutPage from "./checkoutPage"
 import inventoryPage from "./inventoryPage"
 
 class cartPage{
-    constructor(){
-        cy.visit('/cart.html')
-    }
     verifyCartItems(num){
         cy.get('.cart_list').find('.cart_item').should('have.length',num)
     }
