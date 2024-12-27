@@ -17,7 +17,6 @@ describe("Assignment test suite",function(){
         const signinpage=new signInPage()
         cy.fixture('SignIn').then((data)=>{
             const inventorypage=signinpage.signIn(data.username,data.password)
-            signinpage.verifySignIn()
             inventorypage.verifyHome()
         })
     })

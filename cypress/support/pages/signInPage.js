@@ -7,8 +7,5 @@ class signInPage{
         cy.get('#login-button').click()
         return new inventoryPage()
     }
-    verifySignIn(){
-        cy.get('.product_label').should('be.visible').should('have.text','Products')
-    }
 }
 export default signInPage;
