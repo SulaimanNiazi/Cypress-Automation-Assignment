@@ -14,13 +14,11 @@ describe("Assignment test suite",function(){
         cy.fixture('SignIn').then((data)=>{
             this.signin=data
             this.signinpage=new signInPage()
-            cy.visit('/index.html') 
+            cy.visit('/index.html')
             this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
         })
     })
     it('Successful Sign In',function(){
-        cy.visit('/index.html') 
-        this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
         this.inventorypage.verifyHome()
     })
     it("Add Items to Cart and Remove Them from the Products Page",function(){
@@ -81,10 +79,9 @@ describe("Assignment test suite",function(){
     it("Add Items to Cart, Logout, and Login Again to Verify Cart Persistence",function(){
         this.inventorypage.addItem(1)
         this.inventorypage.addItem(2)
-        cy.get('.bm-burger-button > button').click()
-        cy.get('#logout_sidebar_link').click()
-        const inventorypage2=this.signinpage.signIn(this.signin.username,this.signin.password)
-        inventorypage2.verifyHome()
+        this.signinpage=this.inventorypage.logout()
+        this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
+        this.inventorypage.verifyHome()
         cy.visit('/cart.html')
         cy.get('.cart_list').find('.cart_item').should('have.length',2)
     })
