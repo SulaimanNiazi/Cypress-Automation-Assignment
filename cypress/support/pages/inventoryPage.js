@@ -1,8 +1,6 @@
-import cartPage from "./cartPage"
 import productDetailsPage from "./productDetailsPage"
-import signInPage from "./signInPage"
-
-class inventoryPage{
+import page from "./page"
+class inventoryPage extends page{
     verifyHome(){
         cy.get('.inventory_list').find('.inventory_item').should('have.length',6)
     }
@@ -21,10 +19,6 @@ class inventoryPage{
     visitDetailsPage(num){
         cy.get('.inventory_item_name').eq(num-1).click()
         return new productDetailsPage()
-    }
-    visitCart(){
-        cy.get('.shopping_cart_link').click()
-        return new cartPage()
     }
     sortByName(reverse){
         if(reverse){
@@ -65,11 +59,6 @@ class inventoryPage{
                 })
             }
         })
-    }
-    logout(){
-        cy.get('.bm-burger-button > button').click()
-        cy.get('#logout_sidebar_link').click()
-        return new signInPage()
     }
 }
 export default inventoryPage;
