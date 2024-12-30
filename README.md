@@ -84,9 +84,6 @@ npx cypress run --record
 npx cypress open
 ```
 ---
-__[Link of successful run on Cypress Cloud](https://cloud.cypress.io/projects/r367ew/runs/21/overview?roarHideRunsWithDiffGroupsAndTags=1)__
-
----
 [![Cypress Automation Assignment](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/r367ew/master&style=flat&logo=cypress)](https://cloud.cypress.io/projects/r367ew/runs)
 
 ---
