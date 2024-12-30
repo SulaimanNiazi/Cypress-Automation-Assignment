@@ -1,4 +1,5 @@
 import cartPage from "./cartPage"
+import inventoryPage from "./inventoryPage"
 import signInPage from "./signInPage"
 
 class page{

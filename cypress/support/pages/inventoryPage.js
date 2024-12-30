@@ -1,4 +1,4 @@
-import productDetailsPage from "./productDetailsPage"
+import productDetailsPage from "./productDetailsPage.js"
 import page from "./page"
 class inventoryPage extends page{
     verifyHome(){

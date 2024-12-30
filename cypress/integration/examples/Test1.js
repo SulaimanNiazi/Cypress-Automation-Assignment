@@ -16,7 +16,12 @@ describe("Assignment test suite",function(){
             this.signin=data
             this.signinpage=new signInPage('/index.html')
             this.signinpage.visit()
-            this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
+            if((Cypress.env('username')=='')&&(Cypress.env('password')=='')){
+                this.inventorypage=this.signinpage.signIn(this.signin.username,this.signin.password)
+            }
+            else{
+                this.inventorypage=this.signinpage.signIn(Cypress.env('username'),Cypress.env('password'))
+            }
         })
     })
     it('Successful Sign In',function(){
@@ -60,9 +65,14 @@ describe("Assignment test suite",function(){
             const cart=this.inventorypage.visitCart()
             cart.verifyCartItems(2)
             const checkout=cart.checkout()
-            const purchasepage=checkout.enterDetails(entry.firstName,entry.lastName,entry.postalCode)
-            purchasepage.purchase()
-            purchasepage.verifyPurchase()
+            if((Cypress.env('firstName')=='')&&(Cypress.env('lastName')=='')&&(Cypress.env('postalCode')=='')){
+                this.purchasepage=checkout.enterDetails(entry.firstName,entry.lastName,entry.postalCode)
+            }
+            else{
+                this.purchasepage=checkout.enterDetails(Cypress.env('firstName'),Cypress.env('lastName'),Cypress.env('postalCode'))
+            }
+            this.purchasepage.purchase()
+            this.purchasepage.verifyPurchase()
         })
     })
     it("Add Items to Cart, Logout, and Login Again to Verify Cart Persistence",function(){
@@ -83,5 +93,8 @@ describe("Assignment test suite",function(){
         this.inventorypage.verifySorted()
         this.inventorypage.sortByPrice(true)
         this.inventorypage.verifySorted(true)
+    })
+    this.afterEach(()=>{
+        new inventoryPage().logout()
     })
 })

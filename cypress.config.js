@@ -9,6 +9,11 @@ module.exports = defineConfig({
       require('cypress-mochawesome-reporter/plugin')(on);
     },
     env:{
+      username: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      postalCode: ''
     },
     specPattern: 'cypress/integration/examples/*.js',
     baseUrl: 'https://www.saucedemo.com/v1'
