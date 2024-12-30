@@ -8,6 +8,9 @@ module.exports = defineConfig({
       // implement node event listeners here
       require('cypress-mochawesome-reporter/plugin')(on);
     },
+    retries: {
+      runMode: 1
+    },
     env:{
       username: '',
       password: '',
