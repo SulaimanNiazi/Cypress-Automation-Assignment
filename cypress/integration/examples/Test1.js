@@ -6,7 +6,7 @@ import signInPage from "../../support/pages/signInPage"
 
 /*
 clear|npx cypress open
-clear|npx cypress run --browser chrome --spec "cypress/integration/examples/Test1.js"
+clear|npx cypress run --headed --browser firefox --spec "cypress/integration/examples/Test1.js"
 clear|npx cypress cache clear|npx cypress install|npx cypress open
 */
 

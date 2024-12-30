@@ -7,6 +7,7 @@
 cypress/screenshots/**
 node_modules/**
 cypress/downloads/**
+cypress/reports/**
 
 # User-specific files
 *.rsuser
