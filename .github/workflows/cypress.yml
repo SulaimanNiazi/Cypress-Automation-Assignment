@@ -51,7 +51,7 @@ jobs:
           parallel: true
           browser: ${{inputs.BROWSER1}}
           start: npx cypress run
-          group: ${{inputs.BROWSER1}} test group
+          group: Browser 1 test group
 
   Browser-2-run:
     runs-on: ubuntu-latest
@@ -69,4 +69,4 @@ jobs:
           parallel: true
           browser: ${{inputs.BROWSER2}}
           start: npx cypress run
-          group: ${{inputs.BROWSER2}} test group
+          group: Browser 2 test group
