@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "open": "clear|npx cypress open",
+    "testHeaded": "clear|npx cypress run --headed --browser firefox --spec \"cypress/integration/examples/Test1.js\"",
+    "test": "clear|npx cypress run --spec \"cypress/integration/examples/Test1.js\"",
+    "reinstall": "clear|npx cypress cache clear|npx cypress install"
   },
   "author": "",
   "license": "ISC",
