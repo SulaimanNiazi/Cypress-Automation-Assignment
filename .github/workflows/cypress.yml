@@ -12,7 +12,7 @@ on:
       TEST:
         description: Select the test to run
         required: true
-        default: "Successful Sign In"
+        default: Successful Sign In
         type: choice
         options:
         - Successful Sign In
