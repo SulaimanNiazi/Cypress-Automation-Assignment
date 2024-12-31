@@ -1,9 +1,6 @@
 name: Cypress Tests
 
 on: 
-  push:
-    branches: master
-
   pull_request:
     branches: master
 
@@ -65,7 +62,7 @@ jobs:
           record: true
           parallel: true
           browser: ${{inputs.BROWSER1}}
-          start: npm run "${{inputs.TEST}}"
+          start: npm run ${{inputs.TEST}}
           group: Browser 1 test group
 
   Browser-2-run:
@@ -83,5 +80,5 @@ jobs:
           record: true
           parallel: true
           browser: ${{inputs.BROWSER2}}
-          start: npm run "${{inputs.TEST}}"
+          start: npm run ${{inputs.TEST}}
           group: Browser 2 test group
