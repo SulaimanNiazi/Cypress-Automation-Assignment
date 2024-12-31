@@ -4,9 +4,14 @@
   "main": "index.js",
   "scripts": {
     "open": "clear|npx cypress open",
-    "testHeaded": "clear|npx cypress run --headed --browser firefox --spec \"cypress/integration/examples/Test1.js\"",
-    "test": "clear|npx cypress run --spec \"cypress/integration/examples/Test1.js\"",
-    "reinstall": "clear|npx cypress cache clear|npx cypress install"
+    "reinstall": "clear|npx cypress cache clear|npx cypress install",
+    "Successful Sign In": "npx cypress run --spec \"cypress/integration/examples/signInTest.js\"",
+    "Add Items to Cart and Remove Them from the Products Page": "npx cypress run --spec \"cypress/integration/examples/inventoryTest.js\"",
+    "Add Items to Cart and Remove Them from the Checkout Page": "npx cypress run --spec \"cypress/integration/examples/checkoutTest.js\"",
+    "Add Items to Cart and Remove Them from the Product Details Page": "npx cypress run --spec \"cypress/integration/examples/productDetailsTest.js\"",
+    "Buy Items": "npx cypress run --spec \"cypress/integration/examples/buyTest.js\"",
+    "Add Items to Cart, Logout, and Login Again to Verify Cart Persistance": "npx cypress run --spec \"cypress/integration/examples/signInTest.js\"",
+    "Verify All Sorting Options on Products Page": "npx cypress run --spec \"cypress/integration/examples/sortTest.js\""
   },
   "author": "",
   "license": "ISC",
