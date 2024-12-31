@@ -15,13 +15,13 @@ on:
         default: "Successful Sign In"
         type: choice
         options:
-        - "Successful Sign In"
-        - "Add Items to Cart and Remove Them from the Products Page"
-        - "Add Items to Cart and Remove Them from the Checkout Page"
-        - "Add Items to Cart and Remove Them from the Product Details Page"
-        - "Buy Items"
-        - "Add Items to Cart, Logout, and Login Again to Verify Cart Persistance"
-        - "Verify All Sorting Options on Products Page"
+        - Successful Sign In
+        - Add Items to Cart and Remove Them from the Products Page
+        - Add Items to Cart and Remove Them from the Checkout Page
+        - Add Items to Cart and Remove Them from the Product Details Page
+        - Buy Items
+        - Add Items to Cart, Logout, and Login Again to Verify Cart Persistance
+        - Verify All Sorting Options on Products Page
       
       BROWSER1:
         description: Browser for run 1
@@ -39,13 +39,13 @@ on:
         default: "Successful Sign In"
         type: choice
         options:
-        - "Successful Sign In"
-        - "Add Items to Cart and Remove Them from the Products Page"
-        - "Add Items to Cart and Remove Them from the Checkout Page"
-        - "Add Items to Cart and Remove Them from the Product Details Page"
-        - "Buy Items"
-        - "Add Items to Cart, Logout, and Login Again to Verify Cart Persistance"
-        - "Verify All Sorting Options on Products Page"
+        - Successful Sign In
+        - Add Items to Cart and Remove Them from the Products Page
+        - Add Items to Cart and Remove Them from the Checkout Page
+        - Add Items to Cart and Remove Them from the Product Details Page
+        - Buy Items
+        - Add Items to Cart, Logout, and Login Again to Verify Cart Persistance
+        - Verify All Sorting Options on Products Page
       
       BROWSER2:
         description: Browser for run 2
@@ -78,7 +78,7 @@ jobs:
           record: true
           parallel: true
           browser: ${{inputs.BROWSER1}}
-          start: npm run '${{inputs.TEST1}}'
+          start: npm run "${{inputs.TEST1}}"
           group: Browser 1 test group
 
   Browser-2-run:
@@ -96,5 +96,5 @@ jobs:
           record: true
           parallel: true
           browser: ${{inputs.BROWSER2}}
-          start: npm run '${{inputs.TEST2}}'
+          start: npm run "${{inputs.TEST2}}"
           group: Browser 2 test group
