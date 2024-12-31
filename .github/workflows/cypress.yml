@@ -12,13 +12,13 @@ on:
         default: Successful Sign In
         type: choice
         options:
-        - Successful Sign In
-        - Add Items to Cart and Remove Them from the Products Page
-        - Add Items to Cart and Remove Them from the Checkout Page
-        - Add Items to Cart and Remove Them from the Product Details Page
-        - Buy Items
-        - Add Items to Cart, Logout, and Login Again to Verify Cart Persistance
-        - Verify All Sorting Options on Products Page
+        - 'Successful Sign In'
+        - 'Add Items to Cart and Remove Them from the Products Page'
+        - 'Add Items to Cart and Remove Them from the Checkout Page'
+        - 'Add Items to Cart and Remove Them from the Product Details Page'
+        - 'Buy Items'
+        - 'Add Items to Cart, Logout, and Login Again to Verify Cart Persistance'
+        - 'Verify All Sorting Options on Products Page'
       
       BROWSER1:
         description: Browser for run 1
