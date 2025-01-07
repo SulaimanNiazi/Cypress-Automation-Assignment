@@ -23,22 +23,3 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.add('checkSorted',(path,amount,reverse,unitValue,symbol,symbolAfter)=>{
-    if((symbol==null)||(unitValue==null)){
-        unitValue=false
-    }
-    if(symbolAfter==null){
-        symbolAfter=false
-    }
-    let list=Array(amount)
-    cy.get(path).each(($el,index)=>{
-        let val=$el.text()
-        if(unitValue){
-            val=parseFloat(val.split(symbol)[+symbolAfter].trim())
-        }
-        list[index]=val
-    }).then(()=>{
-        const sorted=reverse?list.map(x=>x).sort((a,b)=>b-a):list.map(x=>x).sort((a,b)=>a-b)
-        expect(sorted).to.deep.equal(list)
-    })
-})

@@ -21,6 +21,9 @@ class inventoryPage extends page{
     }
     cartCounter='.fa-layers-counter'
     sort={
+        toNumerical:function(string){
+            return parseFloat(string.split('$').pop().trim())
+        },
         option:{
             container:'.product_sort_container',
             selected:'.product_sort_container option:selected',
@@ -83,11 +86,31 @@ class inventoryPage extends page{
     }
     verifySorted(reverse){
         cy.get(this.sort.option.selected).then((choice)=>{
-            if(choice.text().includes('Price')){
-                cy.checkSorted(this.inventory.items.price,6,reverse,false,null,null)
-            }else{
-                cy.checkSorted(this.inventory.items.name,6,reverse,true,'$',false)
+            if((choice.text().includes(this.sort.alphabetical.ascend.option))||(choice.text().includes(this.sort.alphabetical.descend.option))){
+                this.path=this.inventory.items.name
             }
+            else{
+                this.path=this.inventory.items.price
+            }
+            return Array()
+        }).then((list)=>{
+            cy.get(this.path).each(($el)=>{
+                let val=$el.text()
+                if(this.path==this.inventory.items.price){
+                    val=this.sort.toNumerical(val)
+                }
+                list.push(val)
+            }).then(()=>{
+                let sorted
+                if(this.path==this.inventory.items.price){
+                    sorted=list.map(x=>x).sort((a,b)=>a-b)
+                }
+                else{
+                    sorted=list.map(x=>x).sort()
+                }
+                if(reverse)sorted=sorted.reverse()
+                expect(sorted).to.deep.equal(list)
+            })
         })
     }
 }
