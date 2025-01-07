@@ -1,11 +1,15 @@
 import inventoryPage from "./inventoryPage";
 
 class productDetailsPage{
+    button={
+        remove:'.btn_secondary',
+        exit:'.inventory_details_back_button'
+    }
     removeItem(){
-        cy.get('.btn_secondary').click()
+        cy.get(this.button.remove).click()
     }
     goBack(){
-        cy.get('.inventory_details_back_button').click({force:true})
+        cy.get(this.button.exit).click({force:true})
         return new inventoryPage()
     }
 }

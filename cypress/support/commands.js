@@ -23,20 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.add('sidebarSelect',(num)=>{
-    cy.get('.bm-burger-button > button').click()
-    cy.get('.bm-menu a').eq(num-1).click()
-})
-Cypress.Commands.add('getItemButton',(selected,number)=>{
-    const path=':nth-child('+number.toString()+') > .pricebar'+(selected?' > .btn_secondary':' > .btn_primary')
-    return cy.get(path)
-})
-Cypress.Commands.add('checkSorted',(path,toFloat,reverse)=>{
-    let list=Array(6)
+Cypress.Commands.add('checkSorted',(path,amount,reverse,unitValue,symbol,symbolAfter)=>{
+    if((symbol==null)||(unitValue==null)){
+        unitValue=false
+    }
+    if(symbolAfter==null){
+        symbolAfter=false
+    }
+    let list=Array(amount)
     cy.get(path).each(($el,index)=>{
         let val=$el.text()
-        if(toFloat){
-            val=parseFloat(val.split('$').pop().trim())
+        if(unitValue){
+            val=parseFloat(val.split(symbol)[+symbolAfter].trim())
         }
         list[index]=val
     }).then(()=>{

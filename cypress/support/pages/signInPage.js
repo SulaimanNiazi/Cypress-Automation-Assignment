@@ -2,6 +2,9 @@ import inventoryPage from "./inventoryPage"
 
 class signInPage{
     url
+    loginbutton='#login-button'
+    usernameSlot='[data-test="username"]'
+    passwordSlot='#password'
     constructor(URL){
         this.url=URL
     }
@@ -9,9 +12,9 @@ class signInPage{
         cy.visit(String(this.url))
     }
     signIn(username,password){
-        cy.get('[data-test="username"]').type(username)
-        cy.get('#password').type(password)
-        cy.get('#login-button').click()
+        cy.get(this.usernameSlot).type(username)
+        cy.get(this.passwordSlot).type(password)
+        cy.get(this.loginbutton).click()
         return new inventoryPage()
     }
 }
